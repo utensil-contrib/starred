@@ -112,6 +112,7 @@ def starred(username, token, sort, repository, message, output, launch, type):
     today = str(datetime.date.today())
 
     repo_dict = {}
+    new_dict = {}
 
     # starred order
     star_order = 0
@@ -122,7 +123,13 @@ def starred(username, token, sort, repository, message, output, launch, type):
             repo_dict[language] = []
         repo_dict[language].append([s.name, s.html_url, description.strip(), s.owner.login,
                                     s.stargazers_count, star_order])
+        if language not in new_dict:
+            new_dict[language] = []
+        new_dict[language].append([s.name, s.html_url])
         star_order += 1
+
+    repo_dict = OrderedDict(sorted(repo_dict.items(), key=lambda l: l[0]))
+    new_dict = OrderedDict(sorted(new_dict.items(), key=lambda l: l[0]))
 
     # load prev repo dict and compare with new repo dict
     save_pkl = True
@@ -130,8 +137,8 @@ def starred(username, token, sort, repository, message, output, launch, type):
     repo_pkl_path = os.path.join(cur_path, 'starred-repo.pkl')
     if os.path.isfile(repo_pkl_path):
         with open(repo_pkl_path, 'rb') as file:
-            old_repo_dict = pickle.load(file, encoding='utf-8')
-        if operator.eq(old_repo_dict, repo_dict) == 0:
+            old_dict = pickle.load(file, encoding='utf-8')
+        if operator.eq(old_dict, new_dict):
             save_pkl = False
             if repo_file:
                 click.secho('Error: starred repositories not change in {}'.format(today),
@@ -140,24 +147,21 @@ def starred(username, token, sort, repository, message, output, launch, type):
 
     if save_pkl:
         with open(repo_pkl_path, 'wb') as file:
-            pickle.dump(repo_dict, file)
+            pickle.dump(new_dict, file)
 
     total = 0
     # sort by language and date
     if sort == 'date':
-        repo_dict = OrderedDict(sorted(repo_dict.items(), key=lambda l: l[0]))
         for language in repo_dict:
             repo_dict[language] = sorted(repo_dict[language], key=lambda l: l[5])
             total += len(repo_dict[language])
     # sort by language and name
     elif sort == 'name':
-        repo_dict = OrderedDict(sorted(repo_dict.items(), key=lambda l: l[0]))
         for language in repo_dict:
             repo_dict[language] = sorted(repo_dict[language], key=lambda l: l[0])
             total += len(repo_dict[language])
     # sort by language and stars
     else:
-        repo_dict = OrderedDict(sorted(repo_dict.items(), key=lambda l: l[0]))
         for language in repo_dict:
             repo_dict[language] = sorted(repo_dict[language], key=lambda l: l[4], reverse=True)
             total += len(repo_dict[language])
