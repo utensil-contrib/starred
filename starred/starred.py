@@ -186,6 +186,8 @@ def starred(username, token, sort, repository, message, output, launch, type):
                                 repo[4]]  # stars
                                for index, repo in enumerate(repo_dict[language])]
 
+    info_dict = OrderedDict(sorted(info_dict.items(), key=lambda l: l[0]))
+
     # repo
     for language in info_dict:
         count = len(info_dict[language])
