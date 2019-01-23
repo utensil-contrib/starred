@@ -62,6 +62,14 @@ def html_escape(text):
     return "".join(html_escape_table.get(c, c) for c in text)
 
 
+def title2url(title):
+    """Markdown title to url"""
+    table = str.maketrans('', '', '~`!@#$%^&*()+=[]{}:;\'"<>,.?/\\|')
+
+    title_url = '-'.join(title.lower().split())
+    return title_url.translate(table)
+
+
 @click.command()
 @click.option('--username', envvar='USER', help='GitHub username', required=True)
 @click.option('--token', envvar='GITHUB_TOKEN', help='GitHub token')
@@ -175,9 +183,18 @@ def starred(username, token, sort, repository, message, output, launch, type):
                file=output_file)
 
     # contents
+    title_dict = {}
     for language in repo_dict.keys():
-        data = u'  - [{0}({2})](#{1}-{2})'.format(language, '-'.join(language.lower().split()),
-                                                  len(repo_dict[language]))
+        title = '{} ({})'.format(language, len(repo_dict[language]))
+        title_url = title2url(title)
+        if title_url not in title_dict:
+            title_dict[title_url] = 1
+        else:
+            cnt = title_dict[title_url]
+            title_dict[title_url] += 1
+            title_url = title_url + '-' + str(cnt)
+
+        data = u'  - [{}](#{})'.format(title, title_url)
         click.echo(data, file=output_file)
     click.echo('', file=output_file)
 
