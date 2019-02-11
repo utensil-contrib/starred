@@ -96,6 +96,8 @@ Usage
       --repository TEXT  repository name
       --message TEXT     commit message
       --output TEXT      output file name with path(print to stdout if not set)
+      --http-proxy TEXT  http proxy (i.e. http://127.0.0.1:1080 or socks5://127.0.0.1:1080)
+      --https-proxy TEXT https proxy (same as http proxy if not set)
       --launch           launch to Github after update repository
       --type             output repository information in table or list
       --version          Show the version and exit.

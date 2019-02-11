@@ -79,11 +79,15 @@ def title2url(title):
 @click.option('--message', default=None, help='commit message')
 @click.option('--output', default='',
               help='output file name with path(print to stdout if not set)')
+@click.option('--http-proxy', default=None,
+              help='http proxy (i.e. http://127.0.0.1:1080 or socks5://127.0.0.1:1080)')
+@click.option('--https-proxy', default=None, help='https proxy (same as http proxy if not set)')
 @click.option('--launch',  is_flag=True, help='launch to Github after update repository')
 @click.option('--type', type=click.Choice(['table', 'list']), default='table',
               help='output repository information in table or list')
 @click.version_option(version=VERSION, prog_name='starred')
-def starred(username, token, sort, repository, message, output, launch, type):
+def starred(username, token, sort, repository, message, output,
+            http_proxy, https_proxy, launch, type):
     """GitHub starred
 
     creating your own Awesome List used GitHub stars!
@@ -113,6 +117,13 @@ def starred(username, token, sort, repository, message, output, launch, type):
 
     try:
         gh = GitHub(token=token)
+        if http_proxy:
+            gh.session.proxies['http://'] = http_proxy
+            if https_proxy:
+                gh.session.proxies['https://'] = https_proxy
+            else:
+                gh.session.proxies['https://'] = http_proxy
+
         stars = gh.starred_by(username)
     except ForbiddenError as e:
         click.secho('Error: talk to Github failed: {}'.format(e), fg='red', file=sys.stderr)
