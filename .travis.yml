@@ -8,4 +8,4 @@ install:
 - python setup.py install
 script:
 - pycodestyle --max-line-length=100 starred
-- starred --username 1132719438
+- starred --username utensil --token $GITHUB_TOKEN --repository awesome-stars --sort stars --type list
