@@ -1,13 +1,9 @@
 Starred
 =======
 
-.. image:: https://travis-ci.org/utensil-contrib/starred.svg?branch=master
-    :target: https://travis-ci.org/utensil-contrib/starred
+.. image:: https://travis-ci.com/utensil-contrib/starred.svg?branch=master
+    :target: https://travis-ci.com/utensil-contrib/starred
     :alt: Travis CI Status
-
-.. image:: https://requires.io/github/utensil-contrib/starred/requirements.svg?branch=master
-     :target: https://requires.io/github/utensil-contrib/starred/requirements/?branch=master
-     :alt: Requirements Status
 
 Install
 -------
