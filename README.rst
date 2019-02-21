@@ -1,12 +1,12 @@
 Starred
 =======
 
-.. image:: https://travis-ci.org/1132719438/starred.svg?branch=master
-    :target: https://travis-ci.org/1132719438/starred
+.. image:: https://travis-ci.org/utensil-contrib/starred.svg?branch=master
+    :target: https://travis-ci.org/utensil-contrib/starred
     :alt: Travis CI Status
 
-.. image:: https://requires.io/github/1132719438/starred/requirements.svg?branch=master
-     :target: https://requires.io/github/1132719438/starred/requirements/?branch=master
+.. image:: https://requires.io/github/utensil-contrib/starred/requirements.svg?branch=master
+     :target: https://requires.io/github/utensil-contrib/starred/requirements/?branch=master
      :alt: Requirements Status
 
 Install
@@ -16,9 +16,8 @@ starred requires Python version 3.x
 
 .. code:: bash
 
-    $ git clone https://github.com/1132719438/starred
-    $ pip3 install ./starred
-    $ starred --username 1132719438 --output README.md
+    $ pip3 install -e git+https://github.com/utensil-contrib/starred#egg=starred
+    $ starred --username utensil --output README.md
 
 
 Highlight
@@ -40,7 +39,7 @@ Highlight
 
 #. Nice badges for total number of repositories and generated date
 
-   See `Stars <https://github.com/1132719438/Stars>`__
+   See `utensil/awesome-stars <https://github.com/utensil/awesome-stars>`__
 
 #. Repositories can be sort by stars, starred date or name
 
@@ -109,10 +108,9 @@ Demo
 .. code:: bash
 
     # automatically create the repository
-    $ export GITHUB_TOKEN=<yourtoken>
-    $ starred --username <yourname> --repository <repositoryname>
+    $ starred --username <yourname> --repository awesome-stars --token <yourtoken> --sort stars --type list
 
--  `Stars <https://github.com/1132719438/Stars>`__
+-  `utensil/awesome-stars <https://github.com/utensil/awesome-stars>`__
 
 FAQ
 ---
@@ -129,9 +127,3 @@ FAQ
       Limiting <https://developer.github.com/v3/#rate-limiting>`__
    -  The token must be passed together when you want to automatically
       create the repository.
-
-#. Install the master branch version
-
-   .. code:: bash
-
-      $ pip install -e git+https://github.com/utensil-contrib/starred#egg=starred
