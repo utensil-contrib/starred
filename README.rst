@@ -130,3 +130,8 @@ FAQ
    -  The token must be passed together when you want to automatically
       create the repository.
 
+#. Install the master branch version
+
+   .. code:: bash
+
+      $ pip install -e git+https://github.com/utensil-contrib/starred#egg=starred
