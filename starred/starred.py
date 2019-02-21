@@ -21,12 +21,11 @@ except ImportError:
     VERSION = 'dev'
 
 
-badge_url = 'https://cdn.rawgit.com/sindresorhus/awesome/d730'\
-            '5f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg'
+badge_url = 'https://awesome.re/badge.svg'
 
 awesome_url = 'https://github.com/sindresorhus/awesome'
 
-github_url = 'https://github.com/1132719438/starred'
+github_url = 'https://github.com/utensil-contrib/starred'
 
 count_badge = 'https://img.shields.io/badge/Total-{count}-{color}.svg'
 date_badge = 'https://img.shields.io/badge/Date-{today}-{color}.svg'
